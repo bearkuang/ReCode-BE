@@ -161,7 +161,6 @@ public class StudyReqDto {
         @Size(min = 1, max = 50)
         private String status;
 
-        public StudyMembershipReqDto() {}
         @Builder
         public StudyMembershipReqDto(String status) {
             this.status = status;
