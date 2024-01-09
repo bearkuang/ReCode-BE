@@ -13,5 +13,4 @@ public interface StudyMemberEstimateRepository extends JpaRepository<StudyMember
             "AND sme.studyRoom.id = :studyId")
     Optional<StudyMemberEstimate> findByUserIdAndStudyRoomId(@Param("userId") Long userId,
                                                              @Param("studyId") Long studyId);
-
 }

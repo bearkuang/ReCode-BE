@@ -97,9 +97,10 @@ public class StudyMemberController {
 
         emailService.sendRejectedEmail(studyId, userId, user);
 
+        Long studyMemberId = getStudyMemberId(studyId, userId);
         // AWS Lambda 알림 함수 호출
         String lambdaFunctionUrl = "https://8n4eynhw2h.execute-api.ap-northeast-1.amazonaws.com/prod/notifications/reject";
-        notificationService.sendNotification(studyId, userId, lambdaFunctionUrl);
+        notificationService.sendNotification(studyMemberId, userId, lambdaFunctionUrl);
 
         return new ResponseEntity<>(new ResponseDto<>(1, "가입 신청이 거부되었습니다.",
                 studyMembershipResDto), HttpStatus.OK);

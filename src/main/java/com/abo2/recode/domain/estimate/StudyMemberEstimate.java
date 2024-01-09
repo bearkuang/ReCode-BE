@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,4 +35,6 @@ public class StudyMemberEstimate {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "studyMemberEstimate", cascade = CascadeType.ALL)
+    private List<Estimate> estimates;
 }

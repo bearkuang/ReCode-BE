@@ -26,8 +26,8 @@ public interface ChatRoomUserLinkRepository extends JpaRepository<ChatRoomUserLi
     @Query(value = "UPDATE chat_room_user_link SET created_by=:oneofuserId WHERE chat_room_id=:chatRoomId",nativeQuery = true)
     void updateCreatedBy(@Param(value = "oneofuserId") Long oneofuserId,@Param(value = "chatRoomId") Long chatRoomId);
 
-    boolean existsByUserId(Long userId);
-  
+    boolean existsByUserId(User user);
+
     @Query(value = "SELECT DISTINCT created_by FROM chat_room_user_link WHERE chat_room_id=:chatRoomId",nativeQuery = true)
     Long findCreatedBychatRoomId(@Param(value = "chatRoomId") Long chatRoomId);
 }

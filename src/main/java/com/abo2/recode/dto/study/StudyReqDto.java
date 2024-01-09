@@ -154,6 +154,7 @@ public class StudyReqDto {
 
     @Getter
     @Setter
+    @NoArgsConstructor
     public static class StudyMembershipReqDto{
 
         @NotEmpty

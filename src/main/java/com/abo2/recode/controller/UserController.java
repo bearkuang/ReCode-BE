@@ -111,13 +111,13 @@ public class UserController {
         return new ResponseEntity<>(new ResponseDto<>(1, "탈퇴에 성공하였습니다.", null), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/v1/users/{id}/getuser")
+    @GetMapping(value = "/v1/users/get-user")
     public ResponseEntity<?> getUserInfo(@AuthenticationPrincipal LoginUser loginUser) {
         UserRespDto.GetUserInfoDto getUserInfoDto = userService.getUserInfo(loginUser.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "개인 정보 조회에 성공하였습니다", getUserInfoDto), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/v1/users/{id}/study-applications")
+    @GetMapping(value = "/v1/users/study-applications")
     public ResponseEntity<?> myStudy(@AuthenticationPrincipal LoginUser loginUser) {
         List<StudyResDto.MyStudyRespDto> myStudyRespDto = userService.myStudy(loginUser.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "사용자의 스터디 가입 신청 목록을 성공적으로 조회했습니다.", myStudyRespDto), HttpStatus.OK);

@@ -93,7 +93,7 @@ public class StudyMember {
     @JoinColumn(name = "study_room_id")
     private StudyRoom studyRoom;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE) // or CascadeType.ALL
     @JoinColumn(name = "user_id")
     private User user;
 

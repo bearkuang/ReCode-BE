@@ -6,6 +6,7 @@ import com.abo2.recode.domain.badge.BadgeRepository;
 import com.abo2.recode.domain.badge.UserBadge;
 import com.abo2.recode.domain.badge.UserBadgeRepository;
 import com.abo2.recode.domain.chatroom.ChatRoomUserLinkRepository;
+import com.abo2.recode.domain.estimate.StudyMemberEstimateRepository;
 import com.abo2.recode.domain.notification.NotificationRepository;
 import com.abo2.recode.domain.post.PostReplyRepository;
 import com.abo2.recode.domain.post.PostRepository;
@@ -56,6 +57,7 @@ public class UserService {
     private final PostReplyRepository postReplyRepository;
     private final ChatRoomUserLinkRepository chatRoomUserLinkRepository;
     private final QnaReplyRepository qnaReplyRepository;
+    private final StudyMemberEstimateRepository studyMemberEstimateRepository;
 
     @Transactional
     public UserRespDto.JoinRespDto 회원가입(UserReqDto.JoinReqDto joinReqDto) {
@@ -176,7 +178,7 @@ public class UserService {
 
         if (studyMemberRepository.existsById(userId)) {
             // 스터디장의 권한으로 있는 스터디 룸이 없다면 스터디룸에 작성한 글, 퀴즈, Qna 에서 작성한 글을 제외한 정보 삭제
-            userRepository.dissociateStudyMember(userId);
+            studyMemberRepository.dissociateByUserId(userId);
             if (postRepository.existsByUserId(userId)) {
                 userRepository.dissociatePosts(userId);
             }
@@ -195,11 +197,11 @@ public class UserService {
             if (attendanceRepository.existsByUserId(userId)) {
                 userRepository.deleteUsersAttendance(userId);
             }
+            if (chatRoomUserLinkRepository.existsByUserId(user)) {
+                userRepository.dissociateChatRoomUserLink(userId);
+            }
             if (notificationRepository.existsByUserId(userId)) {
                 userRepository.deleteUsersNotifications(userId);
-            }
-            if (chatRoomUserLinkRepository.existsByUserId(userId)) {
-                userRepository.dissociateChatRoomUserLink(userId);
             }
             userRepository.deleteUsersUserBadge(userId);
             userRepository.deleteWithoutRelatedInfo(userId);

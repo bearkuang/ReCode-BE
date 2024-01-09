@@ -34,7 +34,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM Post_Reply pp WHERE pp.user_id = :userId", nativeQuery = true)
+    @Query(value = "DELETE FROM Post_Reply WHERE user_id = :userId", nativeQuery = true)
     void dissociatePostReply(@Param("userId") Long userId);
 
     @Transactional
@@ -54,12 +54,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM Attendance a WHERE a.user_id = :userId", nativeQuery = true)
+    @Query(value = "DELETE FROM Attendance WHERE user_id = :userId", nativeQuery = true)
     void deleteUsersAttendance(@Param("userId") Long userId);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM Users u WHERE u.user_id = :userId", nativeQuery = true)
+    @Query(value = "DELETE FROM Users WHERE user_id = :userId", nativeQuery = true)
     void deleteWithoutRelatedInfo(@Param("userId") Long userId);
 
 
@@ -71,12 +71,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM Notifications n WHERE n.user_id = :userId", nativeQuery = true)
+    @Query(value = "DELETE FROM Notifications WHERE user_id = :userId", nativeQuery = true)
     void deleteUsersNotifications(@Param("userId") Long userId);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM User_Badge ub WHERE ub.user_id = :userId", nativeQuery = true)
+    @Query(value = "DELETE FROM User_Badge WHERE user_id = :userId", nativeQuery = true)
     void deleteUsersUserBadge(@Param("userId") Long userId);
 
     @Transactional
@@ -86,6 +86,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM Qna_Reply qr FROM qr.user_id =:userId", nativeQuery = true)
+    @Query(value = "DELETE FROM Qna_Reply FROM user_id =:userId", nativeQuery = true)
     void deleteUsersQnaReply(@Param("userId") Long userId);
+
 }
