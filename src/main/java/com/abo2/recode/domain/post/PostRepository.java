@@ -11,7 +11,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     // 게시글 불러오기
-    @Query("SELECT p FROM Post p WHERE p.studyRoom.id = :studyRoomId")
+    @Query("SELECT p FROM Post p WHERE p.studyRoom.id = :studyRoomId ORDER BY p.createdAt DESC")
     List<Post> findPostsByStudyRoomId(@Param("studyRoomId") Long studyRoomId);
 
     // 게시글 검색

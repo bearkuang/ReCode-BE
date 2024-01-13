@@ -41,7 +41,7 @@ public class User {
     @Column(nullable = false, length = 60)
     private String password;
 
-    @Column(length = 100)
+    @Column(columnDefinition = "VARCHAR(500)")
     private String essay;
 
     @Column(nullable = false, length = 30)
