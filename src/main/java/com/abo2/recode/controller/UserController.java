@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -124,6 +125,7 @@ public class UserController {
     }
 
     // 스터디 룸 가입 여부 확인
+    @Transactional
     @GetMapping("/v1/users/{userId}/studyrooms/{studyRoomId}/isInStudyRoom")
     public ResponseEntity<Boolean> isInStudyRoom(@PathVariable Long userId, @PathVariable Long studyRoomId) {
         User user = userService.findUserById(userId);
