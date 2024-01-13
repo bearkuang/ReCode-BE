@@ -445,6 +445,7 @@ public class StudyService {
         return studyRoomRepository.findcreatedByBystudyId(studyId);
     }
 
+    @Transactional
     public boolean isUserInStudyRoom(Long userId, Long studyId) {
         Optional<StudyMember> studyMember = studyMemberRepository.findByUserAndStudyRoom(userId, studyId);
         return studyMember.isPresent();
