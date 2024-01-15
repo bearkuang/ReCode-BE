@@ -1,6 +1,7 @@
 package com.abo2.recode.controller;
 
 import com.abo2.recode.config.auth.LoginUser;
+import com.abo2.recode.config.jwt.JwtVO;
 import com.abo2.recode.domain.studyroom.StudyRoom;
 import com.abo2.recode.domain.user.User;
 import com.abo2.recode.dto.ResponseDto;
@@ -10,6 +11,10 @@ import com.abo2.recode.dto.user.UserRespDto;
 import com.abo2.recode.handler.ex.CustomApiException;
 import com.abo2.recode.service.StudyService;
 import com.abo2.recode.service.UserService;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -180,5 +186,47 @@ public class UserController {
 
         List<Map<Integer, String>> nicknameList = userService.getUserList();
         return new ResponseEntity<>(new ResponseDto<>(1, "유저 목록입니다.", nicknameList), HttpStatus.OK);
+    }
+
+    // jwt 토큰 만료 확인
+    @GetMapping("/check-token")
+    public ResponseEntity<String> yourEndpoint(@RequestHeader("Authorization") String authorizationHeader) {
+        // Authorization header 에서 토큰 추출
+        String token = extractToken(authorizationHeader);
+
+        try {
+            // 토큰 만료 여부 확인
+            if (token != null && isTokenExpired(token)) {
+                // 토큰 만료
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 만료되었습니다. 다시 로그인해주세요.");
+            }
+
+            return ResponseEntity.ok("토큰이 유효합니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("에러 발생");
+        }
+    }
+
+    private String extractToken(String header) {
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.replace("Bearer ", "");
+        }
+        return null;
+    }
+
+    private boolean isTokenExpired(String token) {
+        try {
+            DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JwtVO.SECRET)).build().verify(token);
+            Claim expirationClaim = decodedJWT.getClaim("exp");
+
+            if (expirationClaim.isNull()) {
+                return true;
+            }
+
+            Date expirationDate = new Date(expirationClaim.asLong() * 1000);
+            return expirationDate.before(new Date());
+        } catch (Exception e) {
+            return true;
+        }
     }
 }
