@@ -50,8 +50,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     // dependency for upload S3
-//    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-//    implementation 'com.amazonaws:aws-java-sdk-s3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'com.amazonaws:aws-java-sdk-s3'
 
     // SLF4J to Log4j2 Bridge (if you are using SLF4J APIs in your code)
     implementation 'org.apache.logging.log4j:log4j-api:2.21.1'
