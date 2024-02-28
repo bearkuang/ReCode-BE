@@ -1,3 +1,7 @@
+# PROJECT NAME : Recode
+
+## 📚 PROJECT DESCRIPTION
+
 ### ReCode-BE 프로젝트 소개 
 Recode 서비스는 온라인 스터디 매칭 웹 서비스로 Recode = Let’s coding + Record의 합성어로 같이 코딩하며 공부한 내용을 기록하자는 의미를 담았습니다.
 
