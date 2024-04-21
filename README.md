@@ -70,7 +70,7 @@ Recode 서비스는 온라인 스터디 매칭 웹 서비스로 Recode = Let’s
 ##### 3. Data Flow Chart
 <br>
    
-![Architecture](https://github.com/bearkuang/ReCode-BE/assets/137677440/9520497e-4ff2-408a-8326-98f2cfdcadc8)
+![Flow_chart](https://github.com/bearkuang/ReCode-BE/assets/137677440/2a971c90-5e8a-4499-bce3-8420e78410e8)
 
 ---
 
